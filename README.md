@@ -1,11 +1,11 @@
-# 19 Progressive Web Applications (PWA): Text Editor
+# 18 NoSQL: Social Network API
 
 ## User Story
 
 ```md
-AS A developer
-I WANT to create notes or code snippets with or without an internet connection
-SO THAT I can reliably retrieve them for later use
+AS A social media startup
+I WANT an API for my social network that uses a NoSQL database
+SO THAT my website can handle large amounts of unstructured data
 ```
 
 ## Table of Contents
@@ -13,28 +13,49 @@ SO THAT I can reliably retrieve them for later use
 - [Description](#description)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Screenshot of Deployed Application](#screenshot-of-deployed-application)
+- [API Routes](#api-routes)
+- [Walkthrough Video](#walkthrough-video)
 - [Questions](#questions)
 
 ## Description
 
-This is an installable text editor application that allows users to create and save notes.
+This is an API that uses MongoDB for a social network web application where users can share their thoughts, react to friends’ thoughts, and create a friend list.
 
-## Installation (for local use)
+## Installation
 
-- Clone the repository
 - Run `npm i` to install dependencies
-- Run `npm start` to run the build and start the server
 
 ## Usage
 
-- The application is deployed at [https://afternoon-thicket-95153-42e34b07cb82.herokuapp.com/](https://afternoon-thicket-95153-42e34b07cb82.herokuapp.com/)
-- To use the application, simply write notes in the space provided and the notes will automatically save
-- To install the application locally, click the install button in the address bar of your browser
+- Run `npm start` to run the build and start the server
 
-## Screenshot of Deployed Application
+This application does not have a front end, and can be tested using Insomnia or Postman, etc.
 
-![Screenshot of Deployed Application](./assets/Screenshot%202023-06-25%20at%206.54.02%20PM.png)
+## API Routes
+
+The following user API routes have been configured:
+
+- GET /api/users
+- GET /api/users/:id
+- POST /api/users
+- PUT /api/users/:id
+- DELETE /api/users/:id
+- POST /api/users/:userId/friends/:friendId
+- DELETE /api/users/:userId/friends/:friendId
+
+And the following thought API routes have been configured:
+
+- GET /api/users
+- GET /api/users/:id
+- POST /api/users
+- PUT /api/users/:id
+- DELETE /api/users/:id
+- POST /api/users/:userId/friends/:friendId
+- DELETE /api/users/:userId/friends/:friendId
+
+## Walkthrough Video
+
+The walkthrough video can be viewed [here.](https://www.loom.com/share/c9c2ec781c3444e592855c80808842c9?sid=49b209d2-2af7-4fd5-b5dd-31a71455769f)
 
 ## Questions and Contact Information
 
