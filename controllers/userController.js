@@ -97,7 +97,7 @@ const userController = {
     //remove friend from friend list
     async removeFriend(req, res) {
         try {
-            const dbUserData = await User.findOneAndUpdate({ _id: req.rarams.userId }, { $pull: { friends: req.params.friendId } }, { new: true });
+            const dbUserData = await User.findOneAndUpdate({ _id: req.params.userId }, { $pull: { friends: req.params.friendId } }, { new: true });
 
             if (!dbUserData) {
                 return res.status(404).json({ message: 'User not found'});
