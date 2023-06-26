@@ -5,6 +5,7 @@ const userController = {
     async getAllUsers(req, res) {
         try {
             const dbUserData = await User.find({}).select('-__v').populate('thoughts').populate('friends');
+
             res.json(dbUserData);
 
         } catch (err) {
@@ -20,7 +21,9 @@ const userController = {
             if (!dbUserData) {
                 return res.status(404).json({ message: 'User not found'});
             }
+
             res.json(dbUserData);
+
         } catch (err) {
             console.log(err);
             res.status(500).json(err);
@@ -49,20 +52,64 @@ const userController = {
                     new: true,
                 },
             );
+
             if (!dbUserData) {
                 return res.status(404).json({ message: 'User not found'});
             }
+
             res.json(dbUserData);
+
         } catch (err) {
             console.log(err);
             res.status(500).json(err);
         }
-    }
+    },
     //delete user
+    async deleteUser(req, res) {
+        try {
+            const dbUserData = await User.findByIdAndDelete({ _id: req.params.userId })
 
+            if (!dbUserData) {
+                return res.status(404).json({ message: 'User not found'});
+            }
+    
+        } catch (err) {
+            console.log(err);
+            res.status(500).json(err);
+        }
+    },
     //add friend to friend list
+    async addFriend(req, res) {
+        try {
+            const dbUserData = await User.findOneAndUpdate({ _id: req.params.userId }, { $addToSet: { friends: req.params.friendId } }, { new: true });
 
+           if (!dbUserData) {
+                return res.status(404).json({ message: 'User not found'});
+            }
+            
+            res.json(dbUserData);
+
+        } catch (err) {
+            console.log(err);
+            res.status(500).json(err);
+        }
+    },
     //remove friend from friend list
-}
+    async removeFriend(req, res) {
+        try {
+            const dbUserData = await User.findOneAndUpdate({ _id: req.rarams.userId }, { $pull: { friends: req.params.friendId } }, { new: true });
+
+            if (!dbUserData) {
+                return res.status(404).json({ message: 'User not found'});
+            }
+
+            res.json(dbUserData);
+
+        } catch (err) {
+            console.log(err);
+            res.status(500).json(err);
+        }
+    },
+};
 
 module.exports = userController;
