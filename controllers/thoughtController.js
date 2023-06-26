@@ -19,7 +19,7 @@ const thoughtController = {
             const dbThoughtData = await Thought.findOne({ _id: req.params.thoughtId });
 
             if (!dbThoughtData) {
-                return res.status(404).json({ message: 'User not found'});
+                return res.status(404).json({ message: 'Thought not found'});
             }
 
             res.json(dbThoughtData);
@@ -36,8 +36,16 @@ const thoughtController = {
 
             const dbUserData = await User.findOneAndUpdate(
                 { _id: req.body.userId },
-                { $push: }
-            )
+                { $push: { thoughts: dbThoughtData._id } },
+                { new: true },
+            );
+
+            if (!dbUserData) {
+                return res.status(404).json({ message: 'Thought created successfully, but user was not found'});
+            }
+
+            res.json({ message: 'New thought added successfully' });
+
         } catch (err) {
             console.log(err);
             res.status(500).json(err);
@@ -46,7 +54,17 @@ const thoughtController = {
     //update thought
     async updateThought(req, res) {
         try {
-            
+            const dbThoughtData = await Thought.findOneAndUpdate(
+                { _id: req.params.thoughtId },
+                { $set: req.body },
+                { 
+                    runValidators: true,
+                    new: true,
+                }
+            );
+
+            res.json(dbThoughtData);
+
         } catch (err) {
             console.log(err);
             res.status(500).json(err);
@@ -55,7 +73,14 @@ const thoughtController = {
     //delete thought
     async deleteThought(req, res) {
         try {
-            
+            const dbThoughtData = await Thought.findByIdAndDelete({ _id: req.params.thoughtId })
+
+            if (!dbThoughtData) {
+                return res.status(404).json({ message: 'Thought not found'});
+            }
+
+            const dbUserData
+
         } catch (err) {
             console.log(err);
             res.status(500).json(err);
